@@ -1,0 +1,30 @@
+.mode-selection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.mode-card {
+  padding: 1.5rem;
+  border: 2px solid #000000;
+  border-radius: 1.25rem;
+  background-color: #3da9df;
+}
+
+.mode-card h2 {
+  margin-top: 0;
+}
+
+.mode-card p {
+  min-height: 3rem;
+}
+
+.mode-card button {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #000000;
+  border-radius: 0.75rem;
+  background-color: rgb(255, 205, 4);
+  cursor: pointer;
+}

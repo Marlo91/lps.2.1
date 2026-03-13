@@ -1,0 +1,92 @@
+<div class="page-container">
+  @if (isFinished) {
+    <div class="card">
+      <p>Fragenrunde beendet.</p>
+    </div>
+  } @else if (currentQuestion; as question) {
+    <div class="card">
+      <p>Frage {{ currentIndex + 1 }} von {{ questions.length }}</p>
+
+      <h3>{{ question.text }}</h3>
+
+      @if (question.type === 'fill-in') {
+        <div class="card">
+          <input
+            type="text"
+            [value]="fillInAnswer"
+            (input)="onFillInAnswerChange($any($event.target).value)"
+          />
+
+          @if (isChecked) {
+            @if (isFillInCorrect()) {
+              <p class="answer-badge">✔ Richtig</p>
+            } @else {
+              <p class="answer-badge">✖ Falsch – richtige Antwort: {{ question.correctAnswer }}</p>
+            }
+          }
+        </div>
+      } @else {
+        <ul class="answer-list">
+          @for (answer of question.answers; track answer.id) {
+            <li
+              class="answer-card"
+              [class.correct-answer]="getAnswerClass(answer.id) === 'correct-answer'"
+              [class.wrong-answer]="getAnswerClass(answer.id) === 'wrong-answer'">
+              <label class="answer-label">
+                @if (question.type === 'multiple-choice') {
+                  <input
+                    type="checkbox"
+                    [checked]="isAnswerSelected(answer.id)"
+                    (change)="onAnswerChange(answer.id, $any($event.target).checked)"
+                  />
+                } @else {
+                  <input
+                    type="radio"
+                    [name]="'single-answer-' + question.id"
+                    [checked]="isAnswerSelected(answer.id)"
+                    (change)="onSingleAnswerSelect(answer.id)"
+                  />
+                }
+
+                <span class="answer-text">{{ answer.text }}</span>
+
+                @if (isChecked && getAnswerStatusText(answer.id) !== '') {
+                  <span
+                    class="answer-status"
+                    [class.correct-badge]="getAnswerStatusText(answer.id) === 'Richtig'"
+                    [class.wrong-badge]="getAnswerStatusText(answer.id) === 'Falsch'">
+                    @if (getAnswerStatusText(answer.id) === 'Richtig') {
+                      ✔ Richtig
+                    } @else {
+                      ✖ Falsch
+                    }
+                  </span>
+                }
+              </label>
+            </li>
+          }
+        </ul>
+      }
+
+      @if (isChecked) {
+        <div class="info-box">
+          <h4>Erklärung</h4>
+          <p>{{ question.explanation }}</p>
+        </div>
+      }
+
+      <div class="button-row">
+        <button (click)="goToFirstQuestion()" [disabled]="currentIndex === 0">Erste</button>
+        <button (click)="previousQuestion()" [disabled]="currentIndex === 0">Zurück</button>
+        <button (click)="checkAnswers()">Prüfen</button>
+        <button (click)="nextQuestion()" [disabled]="currentIndex === questions.length - 1">Weiter</button>
+        <button (click)="goToLastQuestion()" [disabled]="currentIndex === questions.length - 1">Letzte</button>
+        <button (click)="finish()">Beenden</button>
+      </div>
+    </div>
+  } @else {
+    <div class="card">
+      <p>Keine Fragen vorhanden.</p>
+    </div>
+  }
+</div>
