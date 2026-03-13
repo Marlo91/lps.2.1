@@ -3,27 +3,22 @@
     <div class="card question-card">
       <div class="question-content">
         <h1>Lernmodus</h1>
-
         <h3>{{ question.text }}</h3>
 
         @if (question.type === 'fill-in') {
-          <div class="success-box">
-            <h4>Richtige Antwort</h4>
-            <p>{{ question.correctAnswer }}</p>
-          </div>
-        } @else {
-          <ul class="answer-list">
-            @for (answer of question.answers; track answer.id) {
-              <li class="answer-card" [class.correct-answer]="isCorrectAnswer(answer.id)">
-                <span>{{ answer.text }}</span>
-
-                @if (isCorrectAnswer(answer.id)) {
-                  <span class="answer-badge">✔ Richtig</span>
-                }
-              </li>
-            }
-          </ul>
-        }
+  <div class="success-box">
+    <h4>Richtige Antwort</h4>
+    <p>{{ question.answers?.[0]?.text }}</p>
+  </div>
+} @else {
+  <ul class="answer-list">
+    @for (answer of question.answers; track answer.id) {
+      <li class="answer-card" [class.correct-answer]="isCorrectAnswer(answer.id)">
+        <span>{{ answer.text }}</span>
+      </li>
+    }
+  </ul>
+}
 
         <div class="info-box">
           <h4>Erklärung</h4>
