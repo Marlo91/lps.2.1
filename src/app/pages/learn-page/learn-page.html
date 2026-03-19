@@ -1,81 +1,16 @@
-@if (currentQuestion; as question) {
-  <div class="page-container">
-    <div class="card question-card">
-      <div class="question-content">
-        <h1>Lernmodus</h1>
-        <h3>{{ question.text }}</h3>
+<div class="page-container">
+  <div class="card">
+    <h1>Lernmodus</h1>
+    <p>Alle Fragen werden in zufälliger Reihenfolge angezeigt.</p>
 
-        @if (question.type === 'fill-in') {
-  <div class="success-box">
-    <h4>Richtige Antwort</h4>
-    <p>{{ question.answers?.[0]?.text }}</p>
-  </div>
-} @else {
-  <ul class="answer-list">
-    @for (answer of question.answers; track answer.id) {
-      <li class="answer-card" [class.correct-answer]="isCorrectAnswer(answer.id)">
-        <span>{{ answer.text }}</span>
-      </li>
-    }
-  </ul>
-}
-
-        <div class="info-box">
-          <h4>Erklärung</h4>
-          <p>{{ question.explanation }}</p>
-        </div>
-      </div>
-
-      <div class="learn-footer">
-        <div class="player-controls">
-          <button
-            class="player-button"
-            (click)="goToFirstQuestion()"
-            [disabled]="currentIndex === 0"
-            title="Erste Frage">
-            ⏮
-          </button>
-
-          <button
-            class="player-button"
-            (click)="previousQuestion()"
-            [disabled]="currentIndex === 0"
-            title="Vorherige Frage">
-            ◀
-          </button>
-
-          <button
-            class="player-button"
-            (click)="nextQuestion()"
-            [disabled]="currentIndex === questions.length - 1"
-            title="Nächste Frage">
-            ▶
-          </button>
-
-          <button
-            class="player-button"
-            (click)="goToLastQuestion()"
-            [disabled]="currentIndex === questions.length - 1"
-            title="Letzte Frage">
-            ⏭
-          </button>
-        </div>
-
-        <div class="progress-wrapper">
-          <div class="progress-container">
-            <div
-              class="progress-bar"
-              [style.width.%]="getProgress()">
-            </div>
-          </div>
-
-          <div class="progress-text">
-            Frage {{ currentIndex + 1 }} / {{ questions.length }}
-          </div>
-        </div>
-      </div>
+    <div class="button-row">
+      <button (click)="startLearningRound()">Neue Lernrunde</button>
     </div>
   </div>
-} @else {
-  <p>Keine Fragen vorhanden.</p>
-}
+
+  <app-exam-question
+    mode="learn"
+    [questions]="questions"
+    [sessionId]="sessionId">
+  </app-exam-question>
+</div>

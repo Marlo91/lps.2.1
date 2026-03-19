@@ -9,6 +9,5 @@ export interface Question {
   type: 'multiple-choice' | 'single-choice' | 'fill-in';
   text: string;
   explanation: string;
-  answers?: AnswerOption[];
-  correctAnswer?: string;
+  answers: AnswerOption[];
 }

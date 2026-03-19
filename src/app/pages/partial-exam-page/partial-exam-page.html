@@ -1,8 +1,16 @@
 <div class="page-container">
   <div class="card">
     <h1>Teil-Prüfungsmodus</h1>
-    <p>Bearbeite einen Teil der Prüfung im Prüfungsstil.</p>
-  </div>
-</div>
+    <p>Alle Fragen werden in zufälliger Reihenfolge angezeigt.</p>
 
-<app-exam-question></app-exam-question>
+    <div class="button-row">
+      <button (click)="startExam()">Neue Fragerunde</button>
+    </div>
+  </div>
+
+  <app-exam-question
+    mode="partial"
+    [questions]="questions"
+    [sessionId]="sessionId">
+  </app-exam-question>
+</div>

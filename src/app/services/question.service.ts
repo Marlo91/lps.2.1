@@ -399,7 +399,37 @@ export class QuestionService {
   }
   ];
 
-  getQuestions(): Question[] {
-    return this.questions;
+   getQuestions(): Question[] {
+    return this.cloneQuestions(this.questions);
+  }
+
+  getShuffledQuestions(): Question[] {
+    return this.shuffleQuestions(this.getQuestions());
+  }
+
+  getRandomQuestions(count: number): Question[] {
+    return this.getShuffledQuestions().slice(0, count);
+  }
+
+  private cloneQuestions(questions: Question[]): Question[] {
+    return questions.map(question => ({
+      ...question,
+      answers: question.answers.map(answer => ({ ...answer }))
+    }));
+  }
+
+  private shuffleQuestions(questions: Question[]): Question[] {
+    const shuffledQuestions = [...questions];
+
+    for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+
+      [shuffledQuestions[i], shuffledQuestions[randomIndex]] = [
+        shuffledQuestions[randomIndex],
+        shuffledQuestions[i]
+      ];
+    }
+
+    return shuffledQuestions;
   }
 }

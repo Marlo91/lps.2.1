@@ -1,20 +1,26 @@
 <div class="page-container">
-  <div class="card">
+  <div class="card page-header-card section-intro">
     <h1>Prüfungsmodus</h1>
-    <p>Wähle eine Prüfungsart aus.</p>
+    <p>Wähle aus, ob du eine Teil-Prüfung oder eine Voll-Prüfung starten möchtest.</p>
+  </div>
 
-    <section class="mode-selection">
-      <article class="mode-card">
-        <h2>Teil-Prüfungsmodus</h2>
-        <p>Bearbeite einen Teil der Prüfung mit ausgewählten Fragen.</p>
-        <button routerLink="/exam/partial">Teil-Prüfung starten</button>
-      </article>
+  <div class="section-actions">
+    <div class="action-card">
+      <h3>Teil-Prüfungsmodus</h3>
+      <p>Alle Fragen in zufälliger Reihenfolge. Nach dem Prüfen bekommst du direkt Feedback und die Erklärung.</p>
 
-      <article class="mode-card">
-        <h2>Voll-Prüfungsmodus</h2>
-        <p>Bearbeite die vollständige Prüfung im Prüfungsstil.</p>
-        <button routerLink="/exam/full">Voll-Prüfung starten</button>
-      </article>
-    </section>
+      <div class="button-row">
+        <a routerLink="/exam/partial" class="action-link">Teil-Prüfung starten</a>
+      </div>
+    </div>
+
+    <div class="action-card">
+      <h3>Voll-Prüfungsmodus</h3>
+      <p>20 zufällige Fragen, Zeitlimit und keine direkte Rückmeldung während der Prüfung.</p>
+
+      <div class="button-row">
+        <a routerLink="/exam/full" class="action-link">Voll-Prüfung starten</a>
+      </div>
+    </div>
   </div>
 </div>

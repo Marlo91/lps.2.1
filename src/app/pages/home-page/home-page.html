@@ -1,18 +1,26 @@
-<header class="home-header">
-  <h1>LPS - Lern & Prüf Simulator</h1>
-  <p>Wähle einen Modus aus.</p>
-</header>
+<div class="page-container">
+  <div class="card page-header-card section-intro">
+    <h1>LPS - Lern & Prüf Simulator</h1>
+    <p>Wähle einen Modus aus.</p>
+  </div>
 
-<section class="mode-selection">
-  <article class="mode-card">
-    <h2>Lernmodus</h2>
-    <p>Fragen bearbeiten und direkt mit Erklärung lernen.</p>
-    <button routerLink="/learn">Lernmodus starten</button>
-  </article>
+  <div class="section-actions">
+    <div class="action-card">
+      <h3>Lernmodus</h3>
+      <p>Fragen bearbeiten und direkt mit Erklärung lernen.</p>
 
-  <article class="mode-card">
-    <h2>Prüfmodus</h2>
-    <p>Prüfungsarten auswählen und im Prüfungsstil arbeiten.</p>
-    <button routerLink="/exam">Prüfmodus starten</button>
-  </article>
-</section>
+      <div class="button-row">
+        <a routerLink="/learn" class="action-link">Lernmodus starten</a>
+      </div>
+    </div>
+
+    <div class="action-card">
+      <h3>Prüfmodus</h3>
+      <p>Prüfungsarten auswählen und im Prüfungsstil arbeiten.</p>
+
+      <div class="button-row">
+        <a routerLink="/exam" class="action-link">Prüfmodus starten</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,90 @@
 <div class="page-container">
-  <div class="card">
-    <h1>Voll-Prüfungsmodus</h1>
-    <p>Hier kommt später der vollständige Prüfungsmodus mit Timer.</p>
-  </div>
-</div>
+  @if (examResult && !showReview) {
+    <div class="card">
+      <h1>Ergebnis Voll-Prüfungsmodus</h1>
 
-<app-exam-question></app-exam-question>
+      <div class="result-status">
+        <span class="result-status-title">Bewertung</span>
+        <span class="result-status-value">{{ examStatusText }}</span>
+      </div>
+
+      <div class="result-summary">
+        <div class="result-stat">
+          <span class="result-stat-label">Gesamtfragen</span>
+          <span class="result-stat-value">{{ examQuestions.length }}</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="result-stat-label">Richtig beantwortet</span>
+          <span class="result-stat-value">{{ examResult.correctAnswers }}</span>
+          <span class="result-stat-subtext">{{ correctPercentage }} %</span>
+        </div>
+
+        <div class="result-stat">
+          <span class="result-stat-label">Falsch beantwortet</span>
+          <span class="result-stat-value">{{ examResult.wrongAnswers }}</span>
+          <span class="result-stat-subtext">{{ wrongPercentage }} %</span>
+        </div>
+      </div>
+
+      @if (examResult.timeExpired) {
+        <div class="info-box">
+          <h4>Zeit abgelaufen</h4>
+          <p>Die Prüfungszeit ist vorbei. Die Prüfung wurde automatisch beendet.</p>
+        </div>
+      } @else if (examResult.wasAborted) {
+        <div class="info-box">
+          <h4>Prüfung abgebrochen</h4>
+          <p>Die Prüfung wurde automatisch beendet, weil 8 Fragen falsch beantwortet wurden.</p>
+          <p>{{ examResult.recommendation }}</p>
+        </div>
+      } @else {
+        <div class="info-box">
+          <h4>Prüfung abgeschlossen</h4>
+          <p>Die Prüfung wurde vollständig beendet.</p>
+        </div>
+      }
+
+      <div class="button-row">
+        <button (click)="openReview()">Antworten ansehen</button>
+        <button (click)="restartExam()">Erneut starten</button>
+      </div>
+    </div>
+  } @else if (examResult && showReview) {
+    <div class="card section-intro">
+      <h1>Prüfungs-Review</h1>
+      <p>Hier kannst du deine Antworten und die Erklärungen noch einmal durchgehen.</p>
+
+      <div class="button-row">
+        <button (click)="closeReview()">Zurück zum Ergebnis</button>
+        <button (click)="restartExam()">Neue Prüfung starten</button>
+      </div>
+    </div>
+
+    <app-exam-question
+      mode="full"
+      [questions]="examQuestions"
+      [reviewMode]="true"
+      [reviewAnswers]="reviewAnswers"
+      [sessionId]="sessionId">
+    </app-exam-question>
+  } @else {
+    <div class="card section-intro">
+      <h1>Voll-Prüfungsmodus</h1>
+      <p>Es werden 20 zufällige Fragen abgefragt.</p>
+
+      <div class="info-box">
+        <h4>Verbleibende Zeit</h4>
+        <p class="timer-value">{{ formattedTime }}</p>
+      </div>
+    </div>
+
+    <app-exam-question
+      mode="full"
+      [questions]="examQuestions"
+      [timeExpired]="timeExpired"
+      [sessionId]="sessionId"
+      (fullExamCompleted)="onFullExamCompleted($event)">
+    </app-exam-question>
+  }
+</div>
